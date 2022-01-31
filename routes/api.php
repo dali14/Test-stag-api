@@ -15,7 +15,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::resource('question', QuestionsController::class);
-Route::get('/question/search/{question}', [QuestionsController::class, 'search']);
+
+
+
+Route::group(['middleware' => ['auth:sanctum']], function(){
+    Route::get('/question/search/{question}', [QuestionsController::class, 'search']);   
+});
 //Route::get('/question', [QuestionsController::class, 'index']);
 //Route::post('/question',[QuestionsController::class, 'store']);
 
