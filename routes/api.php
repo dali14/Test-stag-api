@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\QuestionsController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -13,16 +14,25 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+//Public routes
 
-Route::resource('question', QuestionsController::class);
+Route::get('/question', [QuestionsController::class, 'index']);
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
 
 
 
+//Protected routes
 Route::group(['middleware' => ['auth:sanctum']], function(){
-    Route::get('/question/search/{question}', [QuestionsController::class, 'search']);   
+    Route::get('/question/search/{question}', [QuestionsController::class, 'search']);
+    Route::post('/question',[QuestionsController::class, 'store']); 
+    Route::put('/question/{id}',[QuestionsController::class, 'update']);
+    Route::delete('/question/{id}',[QuestionsController::class, 'destroy']);
+    Route::post('/logout', [AuthController::class, 'logout']);
+
+    
 });
-//Route::get('/question', [QuestionsController::class, 'index']);
-//Route::post('/question',[QuestionsController::class, 'store']);
+//Route::resource('question', QuestionsController::class);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
