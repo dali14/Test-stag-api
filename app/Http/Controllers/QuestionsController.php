@@ -11,11 +11,68 @@ class QuestionsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        return Questions::all();
+    public function index() //for examen build
+    {   $questions = Questions::all()->slice(0,5); // slice 5 for test after change to random 20
+        return response()->json([
+            'questions' => $questions->map(function($item, $key) {
+                $rep = $item->getReponces;
+                return $item->toArray();
+            })
+        ]);
+    }
+    public function show($id)
+    {   
+        $qes = Questions::find($id);
+        $questions = Questions::find($id)->getReponces;
+       
+        return response()->json([
+            
+            'questions' => $qes,
+            // 'niveau' => $qes->niveau,
+            // 'time' => $qes->time,
+            // 'type' => $qes->type,
+            'reponce' => $questions->map(function($item, $key) {
+                $rep = $item->getReponces;
+                return $item->toArray();
+            }) 
+            
+        ]);
+
     }
 
+
+    public function allquestion() // for dashboard admin 
+    {  
+        $req = Questions::all();
+        return response()->json([
+            'questions' => $req,
+
+        ]);
+    }
+
+    public function sum(){
+        $req = Questions::all();
+        $req = $req->pluck('time');
+        return $req->sum();
+       /* return response()->json([
+            'Full time' => $req,
+            'Nombre de question' =>count($req),
+        ]);*/
+
+    }
+    public function random(){
+        $req = Questions::all();
+        $req = $req->random(2);
+       
+        $sum = $req->pluck('time');
+        return response()->json([ 
+            'question' => $req,
+            
+            'full Time' => $sum->sum(),
+            
+        ]);
+    }
+    //return Questions::find(1)->getReponces;
     /**
      * Store a newly created resource in storage.
      *
@@ -26,11 +83,9 @@ class QuestionsController extends Controller
     {   
         $request->validate([
             'question' =>'required',
-            'rep1' =>'required',
-            'rep2' =>'required',
-            'rep3' =>'required',
-            'repV' =>'required',
-            'time' =>'required'
+            'niveau' =>'required',
+            'time' =>'required',
+            'type' =>'required'
 
         ]);
         return Questions::create($request->all());
@@ -42,10 +97,7 @@ class QuestionsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        return Questions::find($id);
-    }
+    
 
     /**
      * Update the specified resource in storage.

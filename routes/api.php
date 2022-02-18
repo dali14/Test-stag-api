@@ -1,6 +1,8 @@
 <?php
 use App\Http\Controllers\QuestionsController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ReponcesController;
+use App\Http\Controllers\ExamenController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,15 +18,32 @@ use Illuminate\Support\Facades\Route;
 */
 //Public routes
 
-Route::get('/question', [QuestionsController::class, 'index']);
+Route::get('/question', [QuestionsController::class, 'index']); // api for examen build 
+Route::get('/allquestion', [QuestionsController::class, 'allquestion']); // api for dashboard admin
+
+Route::get('/getramdom', [QuestionsController::class, 'random']); //get random questions
+Route::get('/question/{question}', [QuestionsController::class, 'show']); //get question with reponce
+///////////////////////////////////////////////////////////
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
+Route::get('/alluser', [AuthController::class, 'user']);
 
+/////////////////////////////////////////////////////////////// 
+Route::get('/reponce', [ReponcesController::class, 'index']);
+Route::get('/reponce/{id}', [ReponcesController::class, 'show']);
+Route::put('/reponce/{id}',[ReponcesController::class, 'update']);
+Route::delete('/reponce/{id}',[ReponcesController::class, 'destroy']);
+Route::post('/reponce', [ReponcesController::class, 'store']);
+/////////////////////////////////////////////////////////////////
+Route::get('/examen', [ExamenController::class, 'index']);
+Route::post('/examen', [ExamenController::class, 'store']);
+Route::put('/examenN/{id}', [ExamenController::class, 'updateNote']); //apdate note
+Route::put('/examenQ/{id}', [ExamenController::class, 'updateQuestion']); // apdate question dans un examen
 
 
 //Protected routes
 Route::group(['middleware' => ['auth:sanctum']], function(){
-    Route::get('/question/search/{question}', [QuestionsController::class, 'search']);
+    
     Route::post('/question',[QuestionsController::class, 'store']); 
     Route::put('/question/{id}',[QuestionsController::class, 'update']);
     Route::delete('/question/{id}',[QuestionsController::class, 'destroy']);
