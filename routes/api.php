@@ -20,14 +20,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/question', [QuestionsController::class, 'index']); // api for examen build 
 Route::get('/allquestion', [QuestionsController::class, 'allquestion']); // api for dashboard admin
-
 Route::get('/getramdom', [QuestionsController::class, 'random']); //get random questions
 Route::get('/question/{question}', [QuestionsController::class, 'show']); //get question with reponce
 ///////////////////////////////////////////////////////////
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/alluser', [AuthController::class, 'user']);
-
 /////////////////////////////////////////////////////////////// 
 Route::get('/reponce', [ReponcesController::class, 'index']);
 Route::get('/reponce/{id}', [ReponcesController::class, 'show']);
@@ -39,16 +37,14 @@ Route::get('/examen', [ExamenController::class, 'index']);
 Route::post('/examen', [ExamenController::class, 'store']);
 Route::put('/examenN/{id}', [ExamenController::class, 'updateNote']); //apdate note
 Route::put('/examenQ/{id}', [ExamenController::class, 'updateQuestion']); // apdate question dans un examen
-
-
+Route::delete('/question/{id}',[QuestionsController::class, 'destroy']);
 //Protected routes
 Route::group(['middleware' => ['auth:sanctum']], function(){
     
     Route::post('/question',[QuestionsController::class, 'store']); 
     Route::put('/question/{id}',[QuestionsController::class, 'update']);
-    Route::delete('/question/{id}',[QuestionsController::class, 'destroy']);
     Route::post('/logout', [AuthController::class, 'logout']);
-
+    
     
 });
 //Route::resource('question', QuestionsController::class);

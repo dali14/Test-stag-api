@@ -19,6 +19,7 @@ class CreateQuestionsTable extends Migration
             $table->integer('niveau');
             $table->integer('time');
             $table->string('type');
+            $table->string('etat');
             $table->timestamps();
         });
     }

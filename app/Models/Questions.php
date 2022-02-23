@@ -19,6 +19,7 @@ class Questions extends Model
         'niveau',
         'time',
         'type',
+        'etat',
         
     ];
 
