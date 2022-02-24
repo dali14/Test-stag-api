@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\QuestionsController;
+use App\Http\Controllers\StagiaireController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ReponcesController;
 use App\Http\Controllers\ExamenController;
@@ -17,7 +18,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 //Public routes
-
+Route::post('/stag', [StagiaireController::class, 'store']);
+Route::get('/stag', [StagiaireController::class, 'index']);
 Route::get('/question', [QuestionsController::class, 'index']); // api for examen build 
 Route::get('/allquestion', [QuestionsController::class, 'allquestion']); // api for dashboard admin
 Route::get('/getramdom', [QuestionsController::class, 'random']); //get random questions

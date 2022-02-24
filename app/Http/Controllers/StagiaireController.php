@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Stagiaire;
 use Illuminate\Http\Request;
 
 class StagiaireController extends Controller
@@ -13,7 +13,7 @@ class StagiaireController extends Controller
      */
     public function index()
     {
-        //
+    return Stagiaire::all();
     }
 
     /**
@@ -24,7 +24,13 @@ class StagiaireController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'cin' =>'required',
+            'niveau' =>'required',
+            
+
+        ]);
+        return Stagiaire::create($request->all());
     }
 
     /**
