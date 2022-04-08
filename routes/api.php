@@ -20,14 +20,17 @@ use Illuminate\Support\Facades\Route;
 //Public routes
 Route::post('/stag', [StagiaireController::class, 'store']);
 Route::get('/stag', [StagiaireController::class, 'index']);
+///////////////////////////////////////////////////////////////////////////////////////
 Route::get('/question', [QuestionsController::class, 'index']); // api for examen build 
 Route::get('/allquestion', [QuestionsController::class, 'allquestion']); // api for dashboard admin
 Route::get('/getramdom', [QuestionsController::class, 'random']); //get random questions
 Route::get('/question/{question}', [QuestionsController::class, 'show']); //get question with reponce
+Route::put('/updatequestion/{id}', [QuestionsController::class, 'updateTimeStatut']);
 ///////////////////////////////////////////////////////////
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/alluser', [AuthController::class, 'user']);
+Route::put('/updateuser/{id}', [AuthController::class, 'apdateuser']);
 /////////////////////////////////////////////////////////////// 
 Route::get('/reponce', [ReponcesController::class, 'index']);
 Route::get('/reponce/{id}', [ReponcesController::class, 'show']);

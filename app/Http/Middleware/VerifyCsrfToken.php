@@ -16,7 +16,11 @@ class VerifyCsrfToken extends Middleware
         'http://localhost:8000/api/register',
         'http://localhost:8000/api/question/*',
         'http://localhost:8000/api/question',
-        'http://localhost:8000/api/stag'
+        'http://localhost:8000/api/stag',
+        'http://localhost:8000/api/reponce',
+        'http://localhost:8000/api/updateuser/*',
+        'http://localhost:8000/api/examen',
+        'http://localhost:8000/api/updatequestion/*'
         
 
     ];

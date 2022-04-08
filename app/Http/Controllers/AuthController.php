@@ -63,7 +63,12 @@ class AuthController extends Controller
         return response($response, 201);
 
     }
+    public function apdateuser(Request $request, $id){
+        $user = User::find($id);
+        $user->update($request->all());
+        return $user ;
 
+    }
     public function logout(Request $request){
         auth()->user()->tokens()->delete();
         return [

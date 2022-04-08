@@ -17,7 +17,8 @@ class QuestionsController extends Controller
             'questions' => $questions->map(function($item, $key) {
                 $rep = $item->getReponces;
                 return $item->toArray();
-            })
+            }),
+            "time" => $questions->pluck('time')->sum()
         ]);
     }
     public function show($id)
@@ -113,6 +114,14 @@ class QuestionsController extends Controller
         return $question ;
 
     }
+    public function updateTimeStatut(Request $request, $id)
+    {
+        $question = Questions::find($id);
+        $question->update($request->all());
+        return $question ;
+
+    }
+
 
     /**
      * Remove the specified resource from storage.
